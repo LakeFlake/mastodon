@@ -75,28 +75,12 @@ class Tag < ApplicationRecord
     requested_review_at.present?
   end
 
-  def use!(account, status: nil, at_time: Time.now.utc)
-    TrendingTags.record_use!(self, account, status: status, at_time: at_time)
-  end
-
   def trending?
-    TrendingTags.trending?(self)
+    Trends.tags.trending?(self)
   end
 
   def history
-    days = []
-
-    7.times do |i|
-      day = i.days.ago.beginning_of_day.to_i
-
-      days << {
-        day: day.to_s,
-        uses: Redis.current.get("activity:tags:#{id}:#{day}") || '0',
-        accounts: Redis.current.pfcount("activity:tags:#{id}:#{day}:accounts").to_s,
-      }
-    end
-
-    days
+    @history ||= Trends::History.new('tags', id)
   end
 
   class << self

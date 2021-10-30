@@ -34,4 +34,14 @@ class AdminMailer < ApplicationMailer
       mail to: @me.user_email, subject: I18n.t('admin_mailer.new_trending_tag.subject', instance: @instance, name: @tag.name)
     end
   end
+
+  def new_trending_link(recipient, link)
+    @link     = link
+    @me       = recipient
+    @instance = Rails.configuration.x.local_domain
+
+    locale_for_account(@me) do
+      mail to: @me.user_email, subject: I18n.t('admin_mailer.new_trending_link.subject', instance: @instance, domain: @link.domain)
+    end
+  end
 end

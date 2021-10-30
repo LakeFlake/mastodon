@@ -6,6 +6,7 @@ class FanOutOnWriteService < BaseService
   def call(status)
     raise Mastodon::RaceConditionError if status.visibility.nil?
 
+    deliver_to_trends(status)
     deliver_to_self(status) if status.account.local?
 
     if status.direct_visibility?
@@ -35,6 +36,11 @@ class FanOutOnWriteService < BaseService
   def deliver_to_self(status)
     Rails.logger.debug "Delivering status #{status.id} to author"
     FeedManager.instance.push_to_home(status.account, status)
+  end
+
+  def deliver_to_trends(status)
+    Rails.logger.debug "Delivering status #{status.id} to trends"
+    Trends.register(status)
   end
 
   def deliver_to_followers(status)

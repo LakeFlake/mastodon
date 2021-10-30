@@ -1,0 +1,5 @@
+<%= raw t('application_mailer.salutation', name: display_name(@me)) %>
+
+<%= raw t('admin_mailer.new_trending_link.body', domain: @link.domain) %>
+
+<%= raw t('application_mailer.view')%> <%= admin_trends_preview_card_providers_url(pending_review: '1') %>

@@ -717,6 +717,9 @@ en:
       unreviewed: Not reviewed
       updated_msg: Hashtag settings updated successfully
     title: Administration
+    trends:
+      preview_card_providers:
+        title: Link providers
     warning_presets:
       add_new: Add new
       delete: Delete
@@ -731,6 +734,9 @@ en:
       body: "%{reporter} has reported %{target}"
       body_remote: Someone from %{domain} has reported %{target}
       subject: New report for %{instance} (#%{id})
+    new_trending_link:
+      body: A link is trending today, but its provider has not been previously reviewed. It will not be displayed publicly unless you approve the provider. Further notifications about this provider will not be generated.
+      subject: New link provider up for review on %{instance} (%{domain})
     new_trending_tag:
       body: 'The hashtag #%{name} is trending today, but has not been previously reviewed. It will not be displayed publicly unless you allow it to, or just save the form as it is to never hear about it again.'
       subject: New hashtag up for review on %{instance} (#%{name})
